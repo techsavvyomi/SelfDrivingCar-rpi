@@ -44,7 +44,7 @@ class RCDriverNNOnly(object):
                     roi = gray[int(height/2):height, :]
 
                     cv2.imshow('image', image)
-                    # cv2.imshow('mlp_image', roi)
+                    cv2.imshow('mlp_image', roi)
 
                     # reshape image
                     image_array = roi.reshape(1, int(height/2) * width).astype(np.float32)
@@ -65,10 +65,10 @@ class RCDriverNNOnly(object):
 
 if __name__ == '__main__':
     # host, port
-    h, p = "192.168.1.100", 8000
+    h, p = "192.168.0.248", 8080
 
     # serial port
-    sp = "/dev/tty.usbmodem1421"
+    sp = "COM10"
 
     # model path
     path = "saved_model/nn_model.xml"
