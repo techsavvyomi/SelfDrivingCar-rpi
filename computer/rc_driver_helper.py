@@ -1,4 +1,4 @@
-__author__ = 'zhengwang'
+
 
 import serial
 import cv2
@@ -8,23 +8,23 @@ import math
 class RCControl(object):
 
     def __init__(self, serial_port):
-        self.serial_port = serial.Serial(serial_port, 115200, timeout=1)
+        self.serial_port = serial.Serial(serial_port, 9600, timeout=1)
 
     def steer(self, prediction):
         if prediction == 2:
-            self.serial_port.write(chr(1).encode())
+            self.serial_port.write(b'1')
             print("Forward")
         elif prediction == 0:
-            self.serial_port.write(chr(7).encode())
+            self.serial_port.write(b'4')
             print("Left")
         elif prediction == 1:
-            self.serial_port.write(chr(6).encode())
+            self.serial_port.write(b'3')
             print("Right")
         else:
             self.stop()
 
     def stop(self):
-        self.serial_port.write(chr(0).encode())
+        self.serial_port.write(b'0')
 
 
 class DistanceToCamera(object):
