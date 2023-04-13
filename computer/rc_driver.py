@@ -1,4 +1,3 @@
-__author__ = 'zhengwang'
 
 import cv2
 import sys
@@ -39,7 +38,7 @@ class VideoStreamHandler(socketserver.StreamRequestHandler):
     nn.load_model("saved_model/nn_model.xml")
 
     obj_detection = ObjectDetection()
-    rc_car = RCControl("/dev/tty.usbmodem1421") 
+    rc_car = RCControl("COM10")
 
     # cascade classifiers
     stop_cascade = cv2.CascadeClassifier("cascade_xml/stop_sign.xml")
@@ -99,12 +98,12 @@ class VideoStreamHandler(socketserver.StreamRequestHandler):
 
                     # neural network makes prediction
                     prediction = self.nn.predict(image_array)
-
+                    print(prediction)
                     # stop conditions
                     if sensor_data and int(sensor_data) < self.d_sensor_thresh:
                         print("Stop, obstacle in front")
                         self.rc_car.stop()
-                        sensor_data = None
+                        #sensor_data = None
 
                     elif 0 < self.d_stop_sign < self.d_stop_light_thresh and stop_sign_active:
                         print("Stop sign ahead")
@@ -183,7 +182,7 @@ class Server(object):
 
 
 if __name__ == '__main__':
-    h, p1, p2 = "192.168.1.100", 8000, 8002
+    h, p1, p2 =  "192.168.0.248", 8080, 8002
 
     ts = Server(h, p1, p2)
     ts.start()
