@@ -1,6 +1,6 @@
 
 import io
-import socket
+import socket 
 import struct
 import time
 import picamera
@@ -8,8 +8,9 @@ import picamera
 
 # create socket and bind host
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('192.168.1.100', 8000))
+client_socket.connect(('192.168.0.248', 8080))
 connection = client_socket.makefile('wb')
+
 
 try:
     with picamera.PiCamera() as camera:
@@ -18,6 +19,7 @@ try:
         time.sleep(2)                       # give 2 secs for camera to initilize
         start = time.time()
         stream = io.BytesIO()
+        
         
         # send jpeg format video stream
         for foo in camera.capture_continuous(stream, 'jpeg', use_video_port = True):
