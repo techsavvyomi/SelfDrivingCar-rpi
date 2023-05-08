@@ -1,4 +1,4 @@
-name: auto-rccar
+name: SelfDriving Car-rpi
 dependencies:
     - python
     - numpy
