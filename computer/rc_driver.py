@@ -38,7 +38,7 @@ class VideoStreamHandler(socketserver.StreamRequestHandler):
     nn.load_model("saved_model/nn_model.xml")
 
     obj_detection = ObjectDetection()
-    rc_car = RCControl("COM10")
+    rc_car = RCControl("/dev/cu.HC-05-DevB") #bluetooth com Port
 
     # cascade classifiers
     stop_cascade = cv2.CascadeClassifier("cascade_xml/stop_sign.xml")
@@ -182,7 +182,7 @@ class Server(object):
 
 
 if __name__ == '__main__':
-    h, p1, p2 =  "192.168.0.248", 8080, 8002
+    h, p1, p2 =  "192.168.18.214", 8000, 8002
 
     ts = Server(h, p1, p2)
     ts.start()
