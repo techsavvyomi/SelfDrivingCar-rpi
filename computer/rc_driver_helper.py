@@ -32,8 +32,8 @@ class DistanceToCamera(object):
     def __init__(self):
         # camera params
         self.alpha = 8.0 * math.pi / 180    # degree measured manually
-        self.v0 = 119.865631204             # from camera matrix
-        self.ay = 332.262498472             # from camera matrix
+        self.v0 = 78.74500252898498             # from camera matrix
+        self.ay = 361.5178615889446             # from camera matrix
 
     def calculate(self, v, h, x_shift, image):
         # compute and return the distance from the target point to the camera
@@ -64,8 +64,8 @@ class ObjectDetection(object):
         cascade_obj = cascade_classifier.detectMultiScale(
             gray_image,
             scaleFactor=1.1,
-            minNeighbors=5,
-            minSize=(30, 30))
+            minNeighbors=7,
+            minSize=(28, 28))
 
         # draw a rectangle around the objects
         for (x_pos, y_pos, width, height) in cascade_obj:
