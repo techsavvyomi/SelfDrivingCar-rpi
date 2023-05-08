@@ -103,7 +103,7 @@ class VideoStreamHandler(socketserver.StreamRequestHandler):
                     if sensor_data and int(sensor_data) < self.d_sensor_thresh:
                         print("Stop, obstacle in front")
                         self.rc_car.stop()
-                        #sensor_data = None
+                        sensor_data = None
 
                     elif 0 < self.d_stop_sign < self.d_stop_light_thresh and stop_sign_active:
                         print("Stop sign ahead")
