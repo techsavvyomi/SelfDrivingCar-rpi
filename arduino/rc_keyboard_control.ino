@@ -4,8 +4,7 @@
 
 #include <MotorDriver.h>
 
-#include<SoftwareSerial.h>
-SoftwareSerial bt05(10,9); 
+
 MotorDriver m;
 
 
@@ -15,16 +14,15 @@ int time = 90;
 char command = 0;
 
 void setup() {
-  pinMode(13,OUTPUT);
-  pinMode(2,OUTPUT);
+  
   Serial.begin(9600);
-  bt05.begin(9600);
+  pinMode(13,OUTPUT);
 }
 
 void loop() {
   //receive command
-  if (bt05.available() > 0){
-    command = bt05.read();
+  if (Serial.available() > 0){
+    command = Serial.read();
   }
   else{
     reset();
@@ -37,27 +35,24 @@ void stop(){
   m.motor(2,BRAKE,0);
   m.motor(3,BRAKE,0);
   m.motor(4,BRAKE,0); 
+  digitalWrite(13,HIGH);
 }
 
 void right(int time){
-  digitalWrite(13,HIGH);
   m.motor(1,FORWARD,120);
   m.motor(2,BACKWARD,120);
   m.motor(3,BACKWARD,120);
   m.motor(4,FORWARD,120); 
   delay(time);
-  digitalWrite(13,LOW);
   stop();
 }
 
 void left(int time){
-  digitalWrite(13,HIGH);
   m.motor(1,BACKWARD,120);
   m.motor(2,FORWARD,120);
   m.motor(3,FORWARD,120);
   m.motor(4,BACKWARD,120);  
   delay(time);
-  digitalWrite(13,LOW);
   stop();
 }
 
@@ -66,8 +61,10 @@ void forward(int time){
   m.motor(2,FORWARD,120);
   m.motor(3,FORWARD,120);
   m.motor(4,FORWARD,120);  
+  digitalWrite(13,LOW);
   delay(time);
-  stop();
+  
+  
 }
 
 void reverse(int time){
